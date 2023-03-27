@@ -1,0 +1,13 @@
+.tree-item .Mui-selected {
+  background-color: transparent !important;
+}
+.tree-item .Mui-selected:hover {
+  /* background-color: rgba(0, 0, 0, 0.04) !important; */
+}
+
+.tree-item .Mui-selected :active .tree-item {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+.Mui-selected :focus {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
