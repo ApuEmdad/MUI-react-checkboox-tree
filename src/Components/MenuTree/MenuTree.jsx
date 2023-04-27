@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import TreeItem from "@mui/lab/TreeItem";
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { Box } from "@mui/system";
 
-const ContentTree = ({ data, selected, setSelected, setParent }) => {
+const MenuTree = ({ data, selected, setSelected, setParent }) => {
   function getChildById(node, id) {
     let array = [];
 
@@ -92,4 +91,4 @@ const ContentTree = ({ data, selected, setSelected, setParent }) => {
   return RenderTreeWithCheckboxes(data);
 };
 
-export default ContentTree;
+export default MenuTree;

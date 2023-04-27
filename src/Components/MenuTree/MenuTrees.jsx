@@ -1,17 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import { TreeMenu as data } from "../../Assets/data/data";
-import ContentTree from "./ContentTree";
-import TestContentTree from "./TestContentTree";
+import MenuTree from "./MenuTree";
+
 import TreeView from "@mui/lab/TreeView";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-const ContentTrees = ({ selected, setSelected, setParent }) => {
+const MenuTrees = ({ selected, setSelected, setParent }) => {
   return (
     <Box>
-      <Box sx={{ backgroundColor: "#f0f0f0", borderRadius: "10px", p: 2 }}>
+      <Box
+        sx={{ backgroundColor: "#f0f0f0", borderRadius: "10px 10px 0 0", p: 2 }}
+      >
         <Typography
           variant="h5"
           sx={{
@@ -24,7 +26,7 @@ const ContentTrees = ({ selected, setSelected, setParent }) => {
         </Typography>
       </Box>
 
-      <Box>
+      <Box sx={{ backgroundColor: "#fafafa" }}>
         {/*++++ Menu List starts ++++*/}
         <TreeView
           className="TreeView"
@@ -36,7 +38,7 @@ const ContentTrees = ({ selected, setSelected, setParent }) => {
           }
         >
           {data.map((data) => (
-            <ContentTree
+            <MenuTree
               data={data}
               key={data.id}
               selected={selected}
@@ -51,28 +53,4 @@ const ContentTrees = ({ selected, setSelected, setParent }) => {
   );
 };
 
-export default ContentTrees;
-
-/* 
-<Box>
-  <TreeView
-    className="TreeView"
-    defaultExpandIcon={
-      <ChevronRightIcon sx={{ fontSize: "1.5rem !important" }} />
-    }
-    defaultCollapseIcon={
-      <ExpandMoreIcon sx={{ fontSize: "1.5rem !important" }} />
-    }
-  >
-    {data.map((data) => (
-      <TestContentTree
-        data={data}
-        key={data.id}
-        selected={selected}
-        setSelected={setSelected}
-        setParent={setParent}
-      />
-    ))}
-  </TreeView>
-</Box>
-*/
+export default MenuTrees;

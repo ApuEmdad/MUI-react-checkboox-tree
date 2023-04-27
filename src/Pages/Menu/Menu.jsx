@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Box, Grid } from "@mui/material";
-import ContentTrees from "../../Components/ContentTree/ContentTrees";
+import MenuTrees from "../../Components/MenuTree/MenuTrees";
 import CreateMenu from "../../Components/CreateMenu/CreateMenu";
 
-const Content = () => {
+const Menu = () => {
   const [selected, setSelected] = useState([]);
   const [parent, setParent] = useState({});
 
@@ -15,7 +15,7 @@ const Content = () => {
       <Grid container spacing={2}>
         {/*++++ content left starts ++++*/}
         <Grid item xs={4}>
-          <ContentTrees
+          <MenuTrees
             selected={selected}
             setSelected={setSelected}
             setParent={setParent}
@@ -33,4 +33,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default Menu;
