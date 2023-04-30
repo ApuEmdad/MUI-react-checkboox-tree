@@ -5,6 +5,7 @@ import TestComponent from "./Components/TestComponent/TestComponent";
 import Home from "./Pages/Home/Home";
 import Menu from "./Pages/Menu/Menu";
 import RecursiveTreeView from "./Components/TestComponent/RecursiveTreeView";
+import Role from "./Pages/Role/Role";
 
 function App() {
   return (
@@ -12,9 +13,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Home />} />
-          <Route path="test" element={<TestComponent />} />
           <Route path="menu" element={<Menu />} />
-          <Route path="treeview" element={<RecursiveTreeView />} />
+          <Route path="role" element={<Role />} />
         </Routes>
       </BrowserRouter>
     </div>
