@@ -5,50 +5,57 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TreeItem from "@mui/lab/TreeItem";
 import { Checkbox, FormControlLabel } from "@mui/material";
 
-const data = [
+const previousData = [
   {
-    id: "asdf",
-    name: "Parent",
+    id: 1,
+    name: "Parent-1",
     children: [
       {
-        id: "1",
+        id: 2,
         name: "Child - 1",
+        children: [],
       },
       {
-        id: "3",
+        id: 3,
         name: "Child - 3",
         children: [
           {
-            id: "4",
+            id: 4,
             name: "Child - 4",
+            children: [],
           },
         ],
       },
     ],
   },
   {
-    id: "pqr",
-    name: "Parent",
+    id: 5,
+    name: "Parent-2",
     children: [
       {
-        id: "1",
+        id: 6,
         name: "Child - 1",
+        children: [],
       },
       {
-        id: "3",
+        id: 7,
         name: "Child - 3",
         children: [
           {
-            id: "4",
+            id: 8,
             name: "Child - 4",
+            children: [],
           },
         ],
       },
     ],
   },
 ];
+
 const TestComponent = () => {
+  const [data, setData] = useState(previousData);
   const [selected, setSelected] = useState([]);
+
   function getChildById(node, id) {
     let array = [];
     //returns an array of nodes ids: clicked node id and all children node ids
@@ -103,7 +110,7 @@ const TestComponent = () => {
   const renderTree = (nodes) => (
     <TreeItem
       key={nodes.id}
-      nodeId={nodes.id}
+      nodeId={nodes.id.toString()}
       label={
         <FormControlLabel
           control={
@@ -126,6 +133,48 @@ const TestComponent = () => {
     </TreeItem>
   );
 
+  /* get all ids starts */
+  const getAllIds = (data) => {
+    let ids = [];
+    for (let item of data) {
+      ids.push(item.id);
+      if (item.children.length > 0) {
+        ids.push(...getAllIds(item.children));
+      }
+    }
+    return ids;
+  };
+  /* get all ids ends */
+
+  /*  insertChildrenById starts */
+  function insertChildrenById(data, id, newChildren) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === id) {
+        if (!data[i].children) {
+          data[i].children = [];
+        }
+        data[i].children.push(...newChildren);
+        return data;
+      } else if (data[i].children && data[i].children.length > 0) {
+        insertChildrenById(data[i].children, id, newChildren);
+      }
+    }
+    return data;
+  }
+  /*  insertChildrenById ends */
+
+  /* inserting data starts */
+  const insertData = () => {
+    const id = Math.floor(Math.random() * (100 - 20)) + 20;
+    const newData = [...data]; // create a new copy of data
+    insertChildrenById(newData, 4, [
+      { id: id, name: `Child-${id}`, children: [] },
+    ]);
+    setData(newData); // set the new data
+    console.log(getAllIds(data));
+  };
+  /* inserting data ends */
+
   return (
     <div>
       {data.map((data) => (
@@ -138,6 +187,7 @@ const TestComponent = () => {
           {renderTree(data)}
         </TreeView>
       ))}
+      <button onClick={insertData}> insert data</button>
     </div>
   );
 };

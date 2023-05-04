@@ -13,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Home />} />
+          <Route path="test" element={<TestComponent />} />
           <Route path="menu" element={<Menu />} />
           <Route path="role" element={<Role />} />
         </Routes>
