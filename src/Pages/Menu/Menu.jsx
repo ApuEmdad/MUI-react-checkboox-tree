@@ -25,7 +25,7 @@ const Menu = () => {
 
         {/*++++ content right starts ++++*/}
         <Grid item xs={8}>
-          <CreateMenu parent={parent} />
+          <CreateMenu parent={parent} setParent={setParent} />
         </Grid>
       </Grid>
       {/*----content left ends ----*/}

@@ -12,7 +12,10 @@ const Home = () => {
           <Link to="/menu">Menu</Link>
         </li>
         <li>
-          <Link to="/role">Role</Link>
+          <Link to="/role">Users</Link>
+        </li>
+        <li>
+          <Link to="/role/permission/1">Role-1</Link>
         </li>
         <li>
           <Link to="/treeview">Tree</Link>

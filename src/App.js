@@ -4,8 +4,8 @@ import { BrowserRouter, Routes, Navigate, Route } from "react-router-dom";
 import TestComponent from "./Components/TestComponent/TestComponent";
 import Home from "./Pages/Home/Home";
 import Menu from "./Pages/Menu/Menu";
-import RecursiveTreeView from "./Components/TestComponent/RecursiveTreeView";
-import Role from "./Pages/Role/Role";
+import EditMenuPermission from "./Pages/EditMenuPermission/EditMenuPermission";
+import Roles from "./Pages/Roles/Roles";
 
 function App() {
   return (
@@ -15,7 +15,8 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="test" element={<TestComponent />} />
           <Route path="menu" element={<Menu />} />
-          <Route path="role" element={<Role />} />
+          <Route path="role" element={<Roles />} />
+          <Route path="role/permission/:id" element={<EditMenuPermission />} />
         </Routes>
       </BrowserRouter>
     </div>

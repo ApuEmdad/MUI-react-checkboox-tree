@@ -7,25 +7,14 @@ import TreeView from "@mui/lab/TreeView";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Title, TitleContainer } from "../Reusables/StyledComponent";
 
 const MenuTrees = ({ selected, setSelected, setParent }) => {
   return (
     <Box>
-      <Box
-        sx={{ backgroundColor: "#f0f0f0", borderRadius: "10px 10px 0 0", p: 2 }}
-      >
-        <Typography
-          variant="h5"
-          sx={{
-            color: "#444444",
-            textTransform: "uppercase",
-            letterSpacing: "2px",
-          }}
-        >
-          SELECT PARENT MENU
-        </Typography>
-      </Box>
-
+      <TitleContainer>
+        <Title variant="h5">Select Parent Menu</Title>
+      </TitleContainer>
       <Box sx={{ backgroundColor: "#fafafa" }}>
         {/*++++ Menu List starts ++++*/}
         <TreeView

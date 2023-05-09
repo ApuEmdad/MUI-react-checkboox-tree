@@ -10,11 +10,29 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { Title, TitleContainer } from "../Reusables/StyledComponent";
 import { useState } from "react";
 
-import { useForm } from "react-hook-form";
+const CreateMenu = ({ parent, setParent }) => {
+  /* ++++ Permissions start ++++ */
+  const permissions = [
+    { id: 1, updated_at: null, name: "view", key: "can_view" },
+    { id: 2, updated_at: null, name: "edit", key: "can_edit" },
+    { id: 3, updated_at: null, name: "add", key: "can_add" },
+    { id: 4, updated_at: null, name: "delete", key: "can_delete" },
+    {
+      id: 5,
+      updated_at: null,
+      name: "change password",
+      key: "can_change_password",
+    },
+    { id: 6, updated_at: null, name: "approve", key: "can_approve" },
+    { id: 7, updated_at: null, name: "reject", key: "can_reject" },
+    { id: 8, updated_at: null, name: "publish", key: "can_publish" },
+  ];
+  /* ---- Permissions end ---- */
 
-const CreateMenu = ({ parent }) => {
   /* ++++ styled components start ++++ */
   const FormGridItem = styled(Grid)`
     display: flex;
@@ -26,13 +44,30 @@ const CreateMenu = ({ parent }) => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
+    reset,
   } = useForm();
 
   const [isMenu, setIsMenu] = useState(true);
 
   const onSubmit = (data) => {
-    const newData = { ...data, parent: parent.name };
+    const selectedPermissions = Object.keys(getValues())
+      .filter((key) => getValues()[key])
+      .map((key) => {
+        const matchedPermission = permissions.find((p) => p.key === key);
+        return matchedPermission ? { name: matchedPermission.name, key } : null;
+      })
+      .filter((permission) => permission !== null);
+
+    const newData = {
+      ...data,
+      parent: parent.name,
+      permissions: selectedPermissions,
+    };
     console.log(newData);
+    setParent("");
+    setIsMenu(true);
+    reset();
   };
   /* ---- Implementing React-Hook-Form ends ---- */
 
@@ -54,20 +89,9 @@ const CreateMenu = ({ parent }) => {
 
   return (
     <Box>
-      <Box
-        sx={{ backgroundColor: "#f0f0f0", borderRadius: "10px 10px 0 0", p: 2 }}
-      >
-        <Typography
-          variant="h5"
-          sx={{
-            color: "#444444",
-            textTransform: "uppercase",
-            letterSpacing: "2px",
-          }}
-        >
-          CREATE MENU
-        </Typography>
-      </Box>
+      <TitleContainer>
+        <Title variant="h5">CREATE MENU</Title>
+      </TitleContainer>
       {/*++++ Inputs start ++++*/}
       <form action="" onSubmit={handleSubmit(onSubmit)}>
         <Box sx={{ p: 2, backgroundColor: "#fafafa" }}>
@@ -82,7 +106,7 @@ const CreateMenu = ({ parent }) => {
               <TextField
                 id="outlined-basic"
                 disabled
-                value={parent?.name || false}
+                value={parent?.name || ""}
                 variant="outlined"
                 sx={{ width: "100%" }}
                 placeholder="Please Select Parent"
@@ -173,6 +197,7 @@ const CreateMenu = ({ parent }) => {
             <Grid item xs={8}>
               <TextField
                 id="outlined-basic"
+                name="icon"
                 label="Icon"
                 variant="outlined"
                 sx={{ width: "100%" }}
@@ -197,7 +222,12 @@ const CreateMenu = ({ parent }) => {
               </Typography>
             </FormGridItem>
             <Grid item xs={8}>
-              <Switch defaultChecked name="isMenu" {...register("is_Menu")} />
+              <Switch
+                checked={isMenu}
+                onClick={() => setIsMenu(!isMenu)}
+                name="isMenu"
+                {...register("is_Menu")}
+              />
             </Grid>
           </Grid>
           {/* ---- IsMenu ends ---- */}
@@ -216,19 +246,16 @@ const CreateMenu = ({ parent }) => {
               </Typography>
             </Grid>
             <Grid item xs={8}>
-              <FormControlLabel control={<Checkbox />} label="View" />
-              <br />
-              <FormControlLabel control={<Checkbox />} label="Add" />
-              <br />
-              <FormControlLabel control={<Checkbox />} label="Edit" />
-              <br />
-              <FormControlLabel control={<Checkbox />} label="Delete" />
-              <br />
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Change Password"
-              />
-              <br />
+              {permissions.map((permission) => (
+                <Box key={permission.id}>
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label={permission.name}
+                    {...register(permission.key)}
+                  />
+                  <br />
+                </Box>
+              ))}
             </Grid>
           </Grid>
           {/* ---- Api Permission ends ---- */}

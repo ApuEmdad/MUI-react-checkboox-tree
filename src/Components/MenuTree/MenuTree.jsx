@@ -64,22 +64,7 @@ const MenuTree = ({ data, selected, setSelected, setParent }) => {
         key={nodes.id}
         nodeId={nodes.id.toString()}
         onClick={() => setParent(nodes)}
-        label={
-          <>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selected.some((item) => item === nodes.id)}
-                  onChange={(event) =>
-                    getOnChange(event.currentTarget.checked, nodes)
-                  }
-                />
-              }
-              key={nodes.id}
-            />
-            {nodes.name}
-          </>
-        }
+        label={<>{nodes.name}</>}
       >
         {Array.isArray(nodes.children)
           ? nodes.children.map((node) => RenderTreeWithCheckboxes(node))

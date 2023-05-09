@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import RoleMenuTrees from "../../Components/RoleMenuTree/RoleMenuTrees";
 
-const Role = () => {
+const EditMenuPermission = () => {
   const [selected, setSelected] = useState([]);
   const [parent, setParent] = useState({});
 
@@ -21,4 +21,4 @@ const Role = () => {
   );
 };
 
-export default Role;
+export default EditMenuPermission;
