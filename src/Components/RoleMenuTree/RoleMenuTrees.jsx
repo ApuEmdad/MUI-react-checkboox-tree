@@ -38,10 +38,9 @@ const RoleMenuTrees = ({ selected, setSelected, setParent }) => {
           }
         >
           {data.map((data) => (
-            <Box>
+            <Box key={data.id}>
               <RoleMenuTree
                 data={data}
-                key={data.id}
                 selected={selected}
                 setSelected={setSelected}
                 setParent={setParent}

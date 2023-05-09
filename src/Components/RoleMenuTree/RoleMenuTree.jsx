@@ -1,7 +1,6 @@
 import React from "react";
 import TreeItem from "@mui/lab/TreeItem";
 import { Box, Checkbox, FormControlLabel } from "@mui/material";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const RoleMenuTree = ({ data, selected, setSelected, setParent }) => {
   const getChildById = (node, id) => {
@@ -60,39 +59,42 @@ const RoleMenuTree = ({ data, selected, setSelected, setParent }) => {
 
   const RenderTreeWithCheckboxes = (nodes) => {
     return (
-      <TreeItem
-        className="tree-item"
-        key={nodes.id}
-        nodeId={nodes.id.toString()}
-        onClick={() => setParent(nodes)}
-        label={
-          <>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selected.some((item) => item === nodes.id)}
-                  onChange={(event) =>
-                    getOnChange(event.currentTarget.checked, nodes)
-                  }
-                />
+      <Box sx={{ display: "flex" }} key={nodes.id}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              sx={{ padding: 0 }}
+              checked={selected.some((item) => item === nodes.id)}
+              onChange={(event) =>
+                getOnChange(event.currentTarget.checked, nodes)
               }
-              key={nodes.id}
             />
-            {nodes.name}
-          </>
-        }
-      >
-        <Box sx={{ paddingLeft: "15px" }}>
-          <FormControlLabel control={<Checkbox />} label="view" />
-          <FormControlLabel control={<Checkbox />} label="edit" />
-          <FormControlLabel control={<Checkbox />} label="add" />
-          <FormControlLabel control={<Checkbox />} label="delete" />
-        </Box>
+          }
+          key={nodes.id}
+          sx={{
+            margin: 0,
+            alignSelf: "baseline",
+          }}
+        />
+        <TreeItem
+          className="tree-item"
+          nodeId={nodes.id.toString()}
+          onClick={() => setParent(nodes)}
+          label={<>{nodes.name}</>}
+          sx={{ flexGrow: 1 }}
+        >
+          <Box sx={{ paddingLeft: "15px" }}>
+            <FormControlLabel control={<Checkbox />} label="view" />
+            <FormControlLabel control={<Checkbox />} label="edit" />
+            <FormControlLabel control={<Checkbox />} label="add" />
+            <FormControlLabel control={<Checkbox />} label="delete" />
+          </Box>
 
-        {Array.isArray(nodes.children)
-          ? nodes.children.map((node) => RenderTreeWithCheckboxes(node))
-          : null}
-      </TreeItem>
+          {Array.isArray(nodes.children)
+            ? nodes.children.map((node) => RenderTreeWithCheckboxes(node))
+            : null}
+        </TreeItem>
+      </Box>
     );
   };
 
