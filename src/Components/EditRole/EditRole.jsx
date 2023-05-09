@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import { CheckCircleOutline, Cancel } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 
-const CreateRole = () => {
+const EditRole = ({ handleClose, name, id }) => {
   /* ++++ Implementing React-Hook-Form starts ++++ */
   const {
     register,
@@ -18,9 +18,9 @@ const CreateRole = () => {
   const onSubmit = (data) => {
     console.log(data);
     reset();
+    handleClose();
   };
   /* ---- Implementing React-Hook-Form ends ---- */
-
   return (
     <Box>
       <TitleContainer>
@@ -37,8 +37,8 @@ const CreateRole = () => {
             <TextField
               id="outlined-basic"
               variant="outlined"
-              sx={{ width: "100%" }}
-              placeholder="Name of the Role"
+              fullWidth
+              value={name}
               {...register("name")}
             />
           </Box>
@@ -51,8 +51,8 @@ const CreateRole = () => {
             <TextField
               id="outlined-basic"
               variant="outlined"
-              sx={{ width: "100%" }}
-              placeholder="Order By"
+              fullWidth
+              value={id}
               {...register("order_by")}
             />
           </Box>
@@ -80,7 +80,7 @@ const CreateRole = () => {
             variant="contained"
             color="secondary"
             startIcon={<Cancel />}
-            onClick={() => reset()}
+            onClick={() => handleClose()}
           >
             Cancel
           </Button>
@@ -92,4 +92,4 @@ const CreateRole = () => {
   );
 };
 
-export default CreateRole;
+export default EditRole;

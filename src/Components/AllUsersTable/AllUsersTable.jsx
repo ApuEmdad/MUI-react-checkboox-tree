@@ -8,6 +8,7 @@ import {
   TableRow,
   Paper,
   IconButton,
+  Dialog,
 } from "@mui/material";
 import {
   CreditScoreSharp,
@@ -18,14 +19,27 @@ import {
 } from "@mui/icons-material";
 
 import { allUsers } from "../../Assets/data/data";
+import EditRole from "../EditRole/EditRole";
+import { Link } from "react-router-dom";
 
 const AllUsersTable = () => {
   const [published, setPublished] = useState(allUsers.map(() => true));
+  const [open, setOpen] = useState(false);
+
   const handlePublish = (index) => {
     const newPublished = [...published];
     newPublished[index] = !newPublished[index];
     setPublished(newPublished);
   };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 350 }}>
@@ -40,9 +54,21 @@ const AllUsersTable = () => {
             <TableRow key={user.id}>
               <TableCell>{user.name}</TableCell>
               <TableCell align="center">
-                <IconButton>
+                <IconButton onClick={handleClickOpen}>
                   <CreditScoreSharp color="secondary" />
                 </IconButton>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  maxWidth="sm"
+                  fullWidth={true}
+                >
+                  <EditRole
+                    handleClose={handleClose}
+                    name={user.name}
+                    id={user.id}
+                  />
+                </Dialog>
                 <IconButton onClick={() => handlePublish(index)}>
                   {published[index] ? (
                     <CheckBoxOutlined color="success" />
@@ -50,9 +76,11 @@ const AllUsersTable = () => {
                     <CheckBoxOutlineBlank color="success" />
                   )}
                 </IconButton>
-                <IconButton>
-                  <RemoveRedEye color="secondary" />
-                </IconButton>
+                <Link to={`./permission/${user.id}`}>
+                  <IconButton>
+                    <RemoveRedEye color="secondary" />
+                  </IconButton>
+                </Link>
                 <IconButton>
                   <Delete color="error" />
                 </IconButton>

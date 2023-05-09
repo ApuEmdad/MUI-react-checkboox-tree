@@ -38,13 +38,15 @@ const RoleMenuTrees = ({ selected, setSelected, setParent }) => {
           }
         >
           {data.map((data) => (
-            <RoleMenuTree
-              data={data}
-              key={data.id}
-              selected={selected}
-              setSelected={setSelected}
-              setParent={setParent}
-            />
+            <Box>
+              <RoleMenuTree
+                data={data}
+                key={data.id}
+                selected={selected}
+                setSelected={setSelected}
+                setParent={setParent}
+              />
+            </Box>
           ))}
         </TreeView>
         {/*---- Menu List ends ----*/}
