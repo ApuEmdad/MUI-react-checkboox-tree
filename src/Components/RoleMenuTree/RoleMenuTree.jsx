@@ -41,6 +41,7 @@ const RoleMenuTree = ({ data, selected, setSelected, setParent }) => {
     let array = checked
       ? [...selected, ...allNode]
       : selected.filter((value) => !allNode.includes(value));
+
     // If the current node has children, update the selected state for all child nodes as well
     if (Array.isArray(nodes.children)) {
       nodes.children.forEach((child) => {
@@ -55,7 +56,7 @@ const RoleMenuTree = ({ data, selected, setSelected, setParent }) => {
     setSelected(array);
   };
 
-  console.log(data);
+  // console.log(data);
 
   const RenderTreeWithCheckboxes = (nodes) => {
     return (
@@ -86,8 +87,17 @@ const RoleMenuTree = ({ data, selected, setSelected, setParent }) => {
           <Box sx={{ paddingLeft: "15px" }}>
             {nodes.permissions.map((permission) => (
               <FormControlLabel
-                key={permission.key}
-                control={<Checkbox />}
+                key={`key:${permission.key}`}
+                control={
+                  <Checkbox
+                    checked={nodes[permission.key]}
+                    onChange={() => {
+                      nodes[permission.key] = !nodes[permission.key];
+                      setSelected([...selected]);
+                      console.log("node:", nodes);
+                    }}
+                  />
+                }
                 label={permission.name}
               />
             ))}

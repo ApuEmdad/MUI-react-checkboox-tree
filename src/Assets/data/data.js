@@ -46,7 +46,7 @@ export const menu = [
     ],
     children: [],
   },
-  /* tweaking the data starts  */
+
   {
     id: 255,
     end_point: "/api/activate/*",
@@ -73,7 +73,7 @@ export const menu = [
     ],
     children: [],
   },
-  /* tweaking the data ends  */
+
   {
     id: 3,
     end_point: "/api/authenticate/*",
@@ -1605,6 +1605,21 @@ export const menu = [
     children: [],
   },
 ];
+/* tweaking the data starts  */
+const createMenuTree = (input) => {
+  const mapMenu = new Map(input.map((item) => [item.id, item]));
+  const tree = [];
+  for (const item of input) {
+    if (mapMenu.has(item.parent_id)) {
+      mapMenu.get(item.parent_id).children.push(mapMenu.get(item.id));
+    } else {
+      tree.push(mapMenu.get(item.id));
+    }
+  }
+  return tree;
+};
+export const TreeMenu = createMenuTree(menu);
+/* tweaking the data ends  */
 
 export const allUsers = [
   {
@@ -3254,21 +3269,6 @@ const permission = {
     },
   },
 };
-
-const createMenuTree = (input) => {
-  const mapMenu = new Map(input.map((item) => [item.id, item]));
-  const tree = [];
-  for (const item of input) {
-    if (mapMenu.has(item.parent_id)) {
-      mapMenu.get(item.parent_id).children.push(mapMenu.get(item.id));
-    } else {
-      tree.push(mapMenu.get(item.id));
-    }
-  }
-  return tree;
-};
-
-export const TreeMenu = createMenuTree(menu);
 
 /* test  data starts*/
 const data = [
