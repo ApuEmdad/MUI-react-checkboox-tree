@@ -6,6 +6,7 @@ import Home from "./Pages/Home/Home";
 import Menu from "./Pages/Menu/Menu";
 import EditMenuPermission from "./Pages/EditMenuPermission/EditMenuPermission";
 import Roles from "./Pages/Roles/Roles";
+import TestRoleMenuTrees from "./Components/TestComponent/TestRoleMenuTrees";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Home />} />
-          <Route path="test" element={<TestComponent />} />
+          <Route path="test" element={<TestRoleMenuTrees />} />
           <Route path="menu" element={<Menu />} />
           <Route path="role" element={<Roles />} />
           <Route path="role/permission/:id" element={<EditMenuPermission />} />

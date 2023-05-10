@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@mui/material";
 import { TreeMenu as data } from "../../Assets/data/data";
-import RoleMenuTree from "./RoleMenuTree";
+import TestRoleMenuTree from "./TestRoleMenuTree";
 import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-const RoleMenuTrees = ({ selected, setSelected, setParent }) => {
+const TestRoleMenuTrees = () => {
+  const [selected, setSelected] = useState([]);
+  const [parent, setParent] = useState({});
+  console.log("selected", selected);
+  console.log("parent", parent);
   return (
     <Box>
       <Box sx={{ backgroundColor: "#fafafa" }}>
@@ -22,7 +26,7 @@ const RoleMenuTrees = ({ selected, setSelected, setParent }) => {
         >
           {data.map((data) => (
             <Box key={data.id}>
-              <RoleMenuTree
+              <TestRoleMenuTree
                 data={data}
                 selected={selected}
                 setSelected={setSelected}
@@ -37,4 +41,4 @@ const RoleMenuTrees = ({ selected, setSelected, setParent }) => {
   );
 };
 
-export default RoleMenuTrees;
+export default TestRoleMenuTrees;
