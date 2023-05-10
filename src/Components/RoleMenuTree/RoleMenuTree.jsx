@@ -37,14 +37,14 @@ const RoleMenuTree = ({ data, selected, setSelected, setParent }) => {
   };
 
   const getOnChange = (checked, nodes) => {
-    const allNode = getChildById(data, nodes.id);
+    const allNode = getChildById(nodes, nodes.id);
     let array = checked
       ? [...selected, ...allNode]
       : selected.filter((value) => !allNode.includes(value));
     // If the current node has children, update the selected state for all child nodes as well
     if (Array.isArray(nodes.children)) {
       nodes.children.forEach((child) => {
-        const childNodeIds = getChildById(data, child.id);
+        const childNodeIds = getChildById(nodes, child.id);
         array = checked
           ? [...array, ...childNodeIds]
           : array.filter((value) => !childNodeIds.includes(value));
