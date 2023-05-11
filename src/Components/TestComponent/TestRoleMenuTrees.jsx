@@ -32,6 +32,7 @@ const TestRoleMenuTrees = () => {
                 selected={selected}
                 setSelected={setSelected}
                 setParent={setParent}
+                parent={parent}
               />
             </Box>
           ))}

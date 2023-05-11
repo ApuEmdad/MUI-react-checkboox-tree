@@ -2,13 +2,19 @@ import React from "react";
 import TreeItem from "@mui/lab/TreeItem";
 import { Box, Checkbox, FormControlLabel } from "@mui/material";
 
-const TestRoleMenuTree = ({ data, selected, setSelected, setParent }) => {
+const TestRoleMenuTree = ({
+  data,
+  selected,
+  setSelected,
+  parent,
+  setParent,
+}) => {
   const getChildById = (node, id) => {
     let array = [];
 
     const getAllChild = (nodes) => {
       if (nodes === null) return [];
-      array.push(nodes.id);
+      array.push(nodes);
       if (Array.isArray(nodes.children)) {
         nodes.children.forEach((node) => {
           array = [...array, ...getAllChild(node)];
@@ -39,7 +45,10 @@ const TestRoleMenuTree = ({ data, selected, setSelected, setParent }) => {
   const getOnChange = (checked, nodes) => {
     /* returns the children ids of current node */
     let allNode = getChildById(nodes, nodes.id);
-    allNode = allNode.filter((v, i) => allNode.indexOf(v) === i);
+    allNode = allNode.filter(
+      (node, index, self) => index === self.findIndex((n) => n.id === node.id)
+    );
+    console.log(checked);
     console.log("allNode", allNode);
 
     /* update selected */
@@ -73,13 +82,21 @@ const TestRoleMenuTree = ({ data, selected, setSelected, setParent }) => {
   // console.log(data);
 
   const RenderTreeWithCheckboxes = (nodes) => {
+    const handlePermission = (permissionKey) => {
+      nodes[permissionKey] = !nodes[permissionKey];
+      console.log(nodes);
+      const updateSelected = selected.map((item) =>
+        item.id === nodes.id ? nodes : item
+      );
+      setSelected(updateSelected);
+    };
     return (
       <Box sx={{ display: "flex" }} key={nodes.id}>
         <FormControlLabel
           control={
             <Checkbox
               sx={{ padding: 0 }}
-              checked={selected.some((item) => item === nodes.id)}
+              checked={selected.some((item) => item.id === nodes.id)}
               onChange={(event) =>
                 getOnChange(event.currentTarget.checked, nodes)
               }
@@ -105,10 +122,7 @@ const TestRoleMenuTree = ({ data, selected, setSelected, setParent }) => {
                 control={
                   <Checkbox
                     checked={nodes[permission.key]}
-                    onChange={() => {
-                      nodes[permission.key] = !nodes[permission.key];
-                      setSelected([...selected]);
-                    }}
+                    onChange={() => handlePermission(permission.key)}
                   />
                 }
                 label={permission.name}
