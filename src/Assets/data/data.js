@@ -3347,4 +3347,45 @@ const data = [
     ],
   },
 ];
+const test_data = [
+  {
+    id: 1,
+    parent_id: null,
+    name: "Account Resource",
+    permissions: [],
+    children: [
+      {
+        id: 2,
+        parent_id: 1,
+        name: "Activate",
+        can_publish: false,
+        permissions: [
+          {
+            key: "can_view",
+            name: "view",
+          },
+        ],
+        children: [],
+      },
+      {
+        id: 3,
+        parent_id: 1,
+        name: "Authenticate",
+        permissions: [
+          {
+            key: "can_view",
+            name: "view",
+          },
+        ],
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 38,
+    parent_id: null,
+    name: "File",
+    children: [],
+  },
+];
 /* test  data ends*/

@@ -9,8 +9,9 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 const TestRoleMenuTrees = () => {
   const [selected, setSelected] = useState([]);
   const [parent, setParent] = useState({});
+
   console.log("selected", selected);
-  console.log("parent", parent);
+  // console.log("parent", parent);
   return (
     <Box>
       <Box sx={{ backgroundColor: "#fafafa" }}>
