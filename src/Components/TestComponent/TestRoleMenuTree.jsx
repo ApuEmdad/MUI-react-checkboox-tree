@@ -56,21 +56,38 @@ const TestRoleMenuTree = ({
     /* returns the children ids of current node */
     const getChild = getChildById(nodes, nodes.id);
     const allNode = getChild.nodes;
-    const ids = getChild.ids; //returns [1,2,255,3,4,5,7,8,9], here node.id = 3 and nodes.parent_id = 255
+    const ids = getChild.ids; //returns [1,2,255,3], here node.id = 3 and nodes.parent_id = 255
 
     console.log(checked);
     /* update selected */
     /* selected = all the node +- allNode, selectedIds = all the ids +- selectedIds  */
     let array = checked
-      ? [...selected, ...allNode]
+      ? [...new Set([...selected, ...allNode])]
       : selected.filter((value) => !allNode.includes(value));
     setSelected(array);
 
+    const unselectParents = (ids, nodeId, parentId) => {
+      return ids
+        .filter((id) => id !== nodeId && id !== parentId)
+        .flatMap((id) => {
+          const node = getChildById(data, id).ids;
+          if (node.parent_id === parentId) {
+            return unselectParents(ids, node.id, node.parent_id);
+          } else {
+            return id;
+          }
+        });
+    };
+
     let idsArray;
     if (checked) {
-      idsArray = [...selectedIds, ...ids];
+      idsArray = [...new Set([...selectedIds, ...ids])];
     } else {
-      idsArray = selectedIds.filter((value) => !ids.includes(value));
+      idsArray = unselectParents(
+        selectedIds.filter((value) => !ids.includes(value)),
+        nodes.id,
+        nodes.parent_id
+      );
     }
     setSelectedIds(idsArray);
 
