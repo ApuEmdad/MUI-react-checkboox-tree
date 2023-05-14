@@ -48,21 +48,29 @@ const TestRoleMenuTree = ({
       getAllChild(foundNode);
     }
 
-    return array;
+    return { nodes: array, ids: ids };
   };
 
   const getOnChange = (checked, nodes) => {
     console.log(nodes);
     /* returns the children ids of current node */
-    let allNode = getChildById(nodes, nodes.id);
-    console.log("allNode:", allNode);
+    const getChild = getChildById(nodes, nodes.id);
+    const allNode = getChild.nodes;
+    const ids = getChild.ids;
+
+    // console.log("ids:", ids);
+    // console.log("allNode:", allNode);
     console.log(checked);
     /* update selected */
-    /* all the node +- allNode */
+    /* selected = all the node +- allNode, selectedIds = all the ids +- selectedIds  */
     let array = checked
       ? [...selected, ...allNode]
       : selected.filter((value) => !allNode.includes(value));
     setSelected(array);
+    let idsArray = checked
+      ? [...selectedIds, ...ids]
+      : selectedIds.filter((value) => !ids.includes(value));
+    setSelectedIds(idsArray);
 
     /* updating permissions */
     const updatePermission = (nodes) => {
@@ -74,13 +82,13 @@ const TestRoleMenuTree = ({
     updatePermission(nodes);
 
     /* unselect Parent */
-    const unselectParent = (checked, nodes) => {
-      const parentExists = selected.includes(nodes?.parent_id);
+    const unselectParent = () => {
+      const parentExists = selectedIds.includes(nodes?.parent_id);
       console.log("node:", nodes);
       console.log("parentId:", nodes.parent_id);
       console.log("parentExists:", parentExists);
     };
-    unselectParent(checked, nodes);
+    // !checked && unselectParent();
   };
 
   // console.log(data);
@@ -99,7 +107,8 @@ const TestRoleMenuTree = ({
           control={
             <Checkbox
               sx={{ padding: 0 }}
-              checked={selected.some((item) => item.id === nodes.id)}
+              checked={selectedIds.some((item) => item === nodes.id)}
+              // checked={selected.some((item) => item.id === nodes.id)}
               onChange={(event) =>
                 getOnChange(event.currentTarget.checked, nodes)
               }

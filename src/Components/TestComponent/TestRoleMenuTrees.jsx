@@ -12,6 +12,7 @@ const TestRoleMenuTrees = () => {
   const [parent, setParent] = useState({});
 
   console.log("selected", selected);
+  console.log("selectedIds", selecteIds);
   // console.log("parent", parent);
   return (
     <Box>
