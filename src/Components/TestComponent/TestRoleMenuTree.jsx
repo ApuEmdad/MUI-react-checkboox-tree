@@ -11,15 +11,20 @@ const TestRoleMenuTree = ({
 }) => {
   const getChildById = (node, id) => {
     let array = [];
+
     const getAllChild = (nodes) => {
-      if (nodes === null) return [];
-      array.push(nodes);
+      if (nodes === null) return;
+
+      // Check if the node already exists in the array
+      if (!array.includes(nodes)) {
+        array.push(nodes);
+      }
+
       if (Array.isArray(nodes.children)) {
         nodes.children.forEach((node) => {
-          array = [...array, ...getAllChild(node)];
+          getAllChild(node);
         });
       }
-      return array;
     };
 
     const getNodeById = (nodes, id) => {
@@ -38,18 +43,20 @@ const TestRoleMenuTree = ({
       return null;
     };
 
-    return getAllChild(getNodeById(node, id));
+    const foundNode = getNodeById(node, id);
+    if (foundNode) {
+      getAllChild(foundNode);
+    }
+
+    return array;
   };
 
   const getOnChange = (checked, nodes) => {
     console.log(nodes);
     /* returns the children ids of current node */
     let allNode = getChildById(nodes, nodes.id);
-    /*  allNode = allNode.filter(
-      (node, index, self) => index === self.findIndex((n) => n.id === node.id)
-    ); */
+    console.log("allNode:", allNode);
     console.log(checked);
-    console.log("allNode", allNode);
 
     /* update selected */
     /* all the node + or - allNode */
