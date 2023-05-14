@@ -56,10 +56,8 @@ const TestRoleMenuTree = ({
     /* returns the children ids of current node */
     const getChild = getChildById(nodes, nodes.id);
     const allNode = getChild.nodes;
-    const ids = getChild.ids;
+    const ids = getChild.ids; //returns [1,2,255,3,4,5,7,8,9], here node.id = 3 and nodes.parent_id = 255
 
-    // console.log("ids:", ids);
-    // console.log("allNode:", allNode);
     console.log(checked);
     /* update selected */
     /* selected = all the node +- allNode, selectedIds = all the ids +- selectedIds  */
@@ -67,9 +65,13 @@ const TestRoleMenuTree = ({
       ? [...selected, ...allNode]
       : selected.filter((value) => !allNode.includes(value));
     setSelected(array);
-    let idsArray = checked
-      ? [...selectedIds, ...ids]
-      : selectedIds.filter((value) => !ids.includes(value));
+
+    let idsArray;
+    if (checked) {
+      idsArray = [...selectedIds, ...ids];
+    } else {
+      idsArray = selectedIds.filter((value) => !ids.includes(value));
+    }
     setSelectedIds(idsArray);
 
     /* updating permissions */
@@ -80,15 +82,6 @@ const TestRoleMenuTree = ({
       }
     };
     updatePermission(nodes);
-
-    /* unselect Parent */
-    const unselectParent = () => {
-      const parentExists = selectedIds.includes(nodes?.parent_id);
-      console.log("node:", nodes);
-      console.log("parentId:", nodes.parent_id);
-      console.log("parentExists:", parentExists);
-    };
-    // !checked && unselectParent();
   };
 
   // console.log(data);

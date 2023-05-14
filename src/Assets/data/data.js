@@ -3313,22 +3313,6 @@ const data = {
       ],
       children: [],
     },
-    {
-      id: 4,
-      parent_id: 1,
-      name: "Account",
-      permissions: [
-        {
-          key: "can_view",
-          name: "view",
-        },
-        {
-          key: "can_add",
-          name: "add",
-        },
-      ],
-      children: [],
-    },
   ],
 };
 
