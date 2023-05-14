@@ -5,7 +5,6 @@ import { Box, Checkbox, FormControlLabel } from "@mui/material";
 const RoleMenuTree = ({ data, selected, setSelected, setParent }) => {
   const getChildById = (node, id) => {
     let array = [];
-
     const getAllChild = (nodes) => {
       if (nodes === null) return [];
       array.push(nodes.id);

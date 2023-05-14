@@ -11,7 +11,6 @@ const TestRoleMenuTree = ({
 }) => {
   const getChildById = (node, id) => {
     let array = [];
-
     const getAllChild = (nodes) => {
       if (nodes === null) return [];
       array.push(nodes);
@@ -43,11 +42,12 @@ const TestRoleMenuTree = ({
   };
 
   const getOnChange = (checked, nodes) => {
+    console.log(nodes);
     /* returns the children ids of current node */
     let allNode = getChildById(nodes, nodes.id);
-    allNode = allNode.filter(
+    /*  allNode = allNode.filter(
       (node, index, self) => index === self.findIndex((n) => n.id === node.id)
-    );
+    ); */
     console.log(checked);
     console.log("allNode", allNode);
 
