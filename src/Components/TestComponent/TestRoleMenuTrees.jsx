@@ -8,6 +8,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const TestRoleMenuTrees = () => {
   const [selected, setSelected] = useState([]);
+  const [selecteIds, setSelectedIds] = useState([]);
   const [parent, setParent] = useState({});
 
   console.log("selected", selected);
@@ -31,6 +32,8 @@ const TestRoleMenuTrees = () => {
                 data={data}
                 selected={selected}
                 setSelected={setSelected}
+                selectedIds={selecteIds}
+                setSelectedIds={setSelectedIds}
                 setParent={setParent}
                 parent={parent}
               />

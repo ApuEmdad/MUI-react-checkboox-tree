@@ -6,20 +6,21 @@ const TestRoleMenuTree = ({
   data,
   selected,
   setSelected,
+  selectedIds,
+  setSelectedIds,
   parent,
   setParent,
 }) => {
   const getChildById = (node, id) => {
     let array = [];
-
+    let ids = [];
     const getAllChild = (nodes) => {
       if (nodes === null) return;
-
       // Check if the node already exists in the array
       if (!array.includes(nodes)) {
         array.push(nodes);
+        ids.push(nodes.id);
       }
-
       if (Array.isArray(nodes.children)) {
         nodes.children.forEach((node) => {
           getAllChild(node);
@@ -39,7 +40,6 @@ const TestRoleMenuTree = ({
         });
         return result;
       }
-
       return null;
     };
 
@@ -57,9 +57,8 @@ const TestRoleMenuTree = ({
     let allNode = getChildById(nodes, nodes.id);
     console.log("allNode:", allNode);
     console.log(checked);
-
     /* update selected */
-    /* all the node + or - allNode */
+    /* all the node +- allNode */
     let array = checked
       ? [...selected, ...allNode]
       : selected.filter((value) => !allNode.includes(value));
@@ -76,18 +75,15 @@ const TestRoleMenuTree = ({
 
     /* unselect Parent */
     const unselectParent = (checked, nodes) => {
-      console.log("nodes:", nodes);
-      const parentExists = selected.includes(nodes.parent_id);
-      const nodeExists = selected.includes(nodes.id);
-      console.log(nodeExists);
-      parentExists &&
-        setSelected(selected.filter((id) => id !== nodes.parent_id));
+      const parentExists = selected.includes(nodes?.parent_id);
+      console.log("node:", nodes);
+      console.log("parentId:", nodes.parent_id);
+      console.log("parentExists:", parentExists);
     };
-    // unselectParent(checked, nodes)
+    unselectParent(checked, nodes);
   };
 
   // console.log(data);
-
   const RenderTreeWithCheckboxes = (nodes) => {
     const handlePermission = (permissionKey) => {
       nodes[permissionKey] = !nodes[permissionKey];
