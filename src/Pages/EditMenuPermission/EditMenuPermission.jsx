@@ -8,10 +8,12 @@ import {
 
 const EditMenuPermission = () => {
   const [selected, setSelected] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
   const [parent, setParent] = useState({});
 
   console.log("selected", selected);
-  console.log("parent", parent);
+  console.log("selectedIds", selectedIds);
+  // console.log("parent", parent);
   return (
     <Box>
       <TitleContainer>
@@ -21,7 +23,10 @@ const EditMenuPermission = () => {
         <RoleMenuTrees
           selected={selected}
           setSelected={setSelected}
+          selectedIds={selectedIds}
+          setSelectedIds={setSelectedIds}
           setParent={setParent}
+          parent={parent}
         />
       </Box>
     </Box>

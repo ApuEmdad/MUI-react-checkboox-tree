@@ -6,7 +6,14 @@ import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-const RoleMenuTrees = ({ selected, setSelected, setParent }) => {
+const RoleMenuTrees = ({
+  selected,
+  setSelected,
+  selectedIds,
+  setSelectedIds,
+  parent,
+  setParent,
+}) => {
   return (
     <Box>
       <Box sx={{ backgroundColor: "#fafafa" }}>
@@ -26,7 +33,10 @@ const RoleMenuTrees = ({ selected, setSelected, setParent }) => {
                 data={data}
                 selected={selected}
                 setSelected={setSelected}
+                selectedIds={selectedIds}
+                setSelectedIds={setSelectedIds}
                 setParent={setParent}
+                parent={parent}
               />
             </Box>
           ))}

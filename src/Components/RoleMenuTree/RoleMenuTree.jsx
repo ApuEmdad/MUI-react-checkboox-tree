@@ -2,18 +2,31 @@ import React from "react";
 import TreeItem from "@mui/lab/TreeItem";
 import { Box, Checkbox, FormControlLabel } from "@mui/material";
 
-const RoleMenuTree = ({ data, selected, setSelected, setParent }) => {
+const RoleMenuTree = ({
+  data,
+  selected,
+  setSelected,
+  selectedIds,
+  setSelectedIds,
+  parent,
+  setParent,
+}) => {
+  /* func getChildById returns the all the selected menu id and menu object seperately */
   const getChildById = (node, id) => {
     let array = [];
+    let ids = [];
     const getAllChild = (nodes) => {
-      if (nodes === null) return [];
-      array.push(nodes.id);
+      if (nodes === null) return;
+      // Check if the node already exists in the array
+      if (!array.includes(nodes)) {
+        array.push(nodes);
+        ids.push(nodes.id);
+      }
       if (Array.isArray(nodes.children)) {
         nodes.children.forEach((node) => {
-          array = [...array, ...getAllChild(node)];
+          getAllChild(node);
         });
       }
-      return array;
     };
 
     const getNodeById = (nodes, id) => {
@@ -28,43 +41,94 @@ const RoleMenuTree = ({ data, selected, setSelected, setParent }) => {
         });
         return result;
       }
-
       return null;
     };
 
-    return getAllChild(getNodeById(node, id));
+    const foundNode = getNodeById(node, id);
+    if (foundNode) {
+      getAllChild(foundNode);
+    }
+
+    return { nodes: array, ids: ids };
   };
 
   const getOnChange = (checked, nodes) => {
-    const allNode = getChildById(nodes, nodes.id);
+    console.log(nodes);
+    /* returns the children ids of current node */
+    const getChild = getChildById(nodes, nodes.id);
+    const allNode = getChild.nodes;
+    const ids = getChild.ids;
+
+    console.log(checked);
+    /* update selected */
+    /* selected = all the node +- allNode, selectedIds = all the ids +- selectedIds  */
     let array = checked
-      ? [...selected, ...allNode]
+      ? [...new Set([...selected, ...allNode])]
       : selected.filter((value) => !allNode.includes(value));
-
-    // If the current node has children, update the selected state for all child nodes as well
-    if (Array.isArray(nodes.children)) {
-      nodes.children.forEach((child) => {
-        const childNodeIds = getChildById(nodes, child.id);
-        array = checked
-          ? [...array, ...childNodeIds]
-          : array.filter((value) => !childNodeIds.includes(value));
-      });
-    }
-    array = array.filter((v, i) => array.indexOf(v) === i);
-
     setSelected(array);
+
+    /* unselectParent remove parentId from selectedIds list thus the the parent checkbox is toggled to uncheck */
+    const unselectParents = (ids, nodeId, parentId) => {
+      return ids
+        .filter((id) => id !== nodeId && id !== parentId)
+        .flatMap((id) => {
+          const node = getChildById(data, id).ids;
+          if (node.parent_id === parentId) {
+            return unselectParents(ids, node.id, node.parent_id);
+          } else {
+            return id;
+          }
+        });
+    };
+
+    let idsArray;
+    if (checked) {
+      idsArray = [...new Set([...selectedIds, ...ids])];
+    } else {
+      idsArray = unselectParents(
+        selectedIds.filter((value) => !ids.includes(value)),
+        nodes.id,
+        nodes.parent_id
+      );
+    }
+    setSelectedIds(idsArray);
+
+    /* updating permissions */
+    const updatePermission = (nodes) => {
+      nodes.permissions.map((permission) => (nodes[permission.key] = checked));
+      if (nodes.children) {
+        nodes.children.map((child) => updatePermission(child));
+      }
+    };
+    updatePermission(nodes);
   };
 
   // console.log(data);
-
   const RenderTreeWithCheckboxes = (nodes) => {
+    /* func handlePermission is invoked whenever any permission checkbox is changed */
+    const handlePermission = (permissionKey) => {
+      nodes[permissionKey] = !nodes[permissionKey];
+      console.log(nodes);
+      let matchFound = false;
+      const updateSelected = selected.map((item) => {
+        if (item.id === nodes.id) {
+          matchFound = true;
+          return nodes; // replace the item with nodes
+        }
+        return item; // keep the original item
+      });
+      if (!matchFound) {
+        updateSelected.push(nodes); // add nodes to the array if no match was found
+      }
+      setSelected(updateSelected);
+    };
     return (
       <Box sx={{ display: "flex" }} key={nodes.id}>
         <FormControlLabel
           control={
             <Checkbox
               sx={{ padding: 0 }}
-              checked={selected.some((item) => item === nodes.id)}
+              checked={selectedIds.some((item) => item === nodes.id)}
               onChange={(event) =>
                 getOnChange(event.currentTarget.checked, nodes)
               }
@@ -90,11 +154,7 @@ const RoleMenuTree = ({ data, selected, setSelected, setParent }) => {
                 control={
                   <Checkbox
                     checked={nodes[permission.key]}
-                    onChange={() => {
-                      nodes[permission.key] = !nodes[permission.key];
-                      setSelected([...selected]);
-                      console.log("node:", nodes);
-                    }}
+                    onChange={() => handlePermission(permission.key)}
                   />
                 }
                 label={permission.name}
