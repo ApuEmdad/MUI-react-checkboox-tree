@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import { TreeMenu as data } from "../../Assets/data/data";
 import MenuTree from "./MenuTree";
@@ -9,14 +9,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Title, TitleContainer } from "../Reusables/StyledComponent";
 
-const MenuTrees = ({
-  selected,
-  setSelected,
-  selectedIds,
-  setSelectedIds,
-  parent,
-  setParent,
-}) => {
+const MenuTrees = ({ selected, setSelected, parent, setParent }) => {
   return (
     <Box>
       <TitleContainer>

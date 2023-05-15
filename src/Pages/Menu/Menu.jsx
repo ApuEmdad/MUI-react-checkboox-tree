@@ -6,10 +6,9 @@ import CreateMenu from "../../Components/CreateMenu/CreateMenu";
 const Menu = () => {
   const [selected, setSelected] = useState([]);
   const [parent, setParent] = useState({});
-  const [selectedIds, setSelectedIds] = useState([]);
 
   console.log("selected", selected);
-  console.log("selectedIds", selectedIds);
+
   console.log("parent", parent);
 
   return (
@@ -20,8 +19,6 @@ const Menu = () => {
           <MenuTrees
             selected={selected}
             setSelected={setSelected}
-            selectedIds={selectedIds}
-            setSelectedIds={setSelectedIds}
             setParent={setParent}
             parent={parent}
           />
