@@ -9,7 +9,14 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Title, TitleContainer } from "../Reusables/StyledComponent";
 
-const MenuTrees = ({ selected, setSelected, setParent }) => {
+const MenuTrees = ({
+  selected,
+  setSelected,
+  selectedIds,
+  setSelectedIds,
+  parent,
+  setParent,
+}) => {
   return (
     <Box>
       <TitleContainer>

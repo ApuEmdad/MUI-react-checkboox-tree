@@ -106,9 +106,17 @@ const TestRoleMenuTree = ({
     const handlePermission = (permissionKey) => {
       nodes[permissionKey] = !nodes[permissionKey];
       console.log(nodes);
-      const updateSelected = selected.map((item) =>
-        item.id === nodes.id ? nodes : item
-      );
+      let matchFound = false;
+      const updateSelected = selected.map((item) => {
+        if (item.id === nodes.id) {
+          matchFound = true;
+          return nodes; // replace the item with nodes
+        }
+        return item; // keep the original item
+      });
+      if (!matchFound) {
+        updateSelected.push(nodes); // add nodes to the array if no match was found
+      }
       setSelected(updateSelected);
     };
     return (
