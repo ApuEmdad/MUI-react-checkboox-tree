@@ -25,6 +25,7 @@ import { Link } from "react-router-dom";
 const AllUsersTable = () => {
   const [published, setPublished] = useState(allUsers.map(() => true));
   const [open, setOpen] = useState(false);
+  const [openDialogId, setOpenDialogId] = useState(null);
 
   const handlePublish = (index) => {
     const newPublished = [...published];
@@ -32,11 +33,13 @@ const AllUsersTable = () => {
     setPublished(newPublished);
   };
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (userId) => {
+    setOpenDialogId(userId);
     setOpen(true);
   };
 
   const handleClose = () => {
+    setOpenDialogId(null);
     setOpen(false);
   };
 
@@ -54,11 +57,11 @@ const AllUsersTable = () => {
             <TableRow key={user.id}>
               <TableCell>{user.name}</TableCell>
               <TableCell align="center">
-                <IconButton onClick={handleClickOpen}>
+                <IconButton onClick={() => handleClickOpen(user.id)}>
                   <CreditScoreSharp color="secondary" />
                 </IconButton>
                 <Dialog
-                  open={open}
+                  open={openDialogId === user.id}
                   onClose={handleClose}
                   maxWidth="sm"
                   fullWidth={true}
