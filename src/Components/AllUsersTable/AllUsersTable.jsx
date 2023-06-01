@@ -48,8 +48,12 @@ const AllUsersTable = () => {
       <Table sx={{ minWidth: 350 }}>
         <TableHead>
           <TableRow>
-            <TableCell sx={{ width: "60%" }}>Name</TableCell>
-            <TableCell align="center">Action</TableCell>
+            <TableCell sx={{ width: "60%" }}>
+              <b>Name</b>
+            </TableCell>
+            <TableCell align="center">
+              <b>Action</b>
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
