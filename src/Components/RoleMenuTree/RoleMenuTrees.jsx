@@ -1,11 +1,11 @@
-import React from "react";
 import { Box } from "@mui/material";
-import { TreeMenu as data } from "../../Assets/data/data";
-import RoleMenuTree from "./RoleMenuTree";
 import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
+import { TreeMenu as data } from "../../Assets/data/data";
+
+import RoleMenuTree from "./RoleMenuTree";
 const RoleMenuTrees = ({
   selected,
   setSelected,

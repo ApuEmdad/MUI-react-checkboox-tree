@@ -1,5 +1,5 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
+import { Box, Button, Grid } from "@mui/material";
 import RoleMenuTrees from "../../Components/RoleMenuTree/RoleMenuTrees";
 import {
   Title,
@@ -14,7 +14,8 @@ const EditMenuPermission = () => {
 
   console.log("selected", selected);
   console.log("selectedIds", selectedIds);
-  // console.log("parent", parent);
+  console.log("parent", parent);
+
   const handleCreatePayload = () => {
     const payload = {
       id: "4",

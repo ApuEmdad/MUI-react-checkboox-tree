@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import React from "react";
 import { Title, TitleContainer } from "../Reusables/StyledComponent";
 import AllUsersTable from "../AllUsersTable/AllUsersTable";
 
