@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
-import { TreeMenu as data } from "../../Assets/data/data";
+import { TreeMenu } from "../../Assets/data/data";
 import MenuTree from "./MenuTree";
 
 import TreeView from "@mui/lab/TreeView";
@@ -10,6 +10,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Title, TitleContainer } from "../Reusables/StyledComponent";
 
 const MenuTrees = ({ selected, setSelected, parent, setParent }) => {
+  const data = TreeMenu.tree;
   return (
     <Box>
       <TitleContainer>

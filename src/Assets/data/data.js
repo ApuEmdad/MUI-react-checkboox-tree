@@ -1605,18 +1605,30 @@ export const menu = [
     children: [],
   },
 ];
+
+/*++++ new Map (parent_id: [children_id]) starts ++++*/
+
+/*---- new Map (parent_id: [children_id]) endss ----*/
 /* tweaking the data starts  */
 const createMenuTree = (input) => {
-  const mapMenu = new Map(input.map((item) => [item.id, item]));
+  const mapMenu = new Map();
+  const mapChildrenToParent = new Map();
+  input.forEach((item) => {
+    mapMenu.set(item.id, item);
+    mapChildrenToParent.set(item.id, []);
+  });
+
   const tree = [];
   for (const item of input) {
     if (mapMenu.has(item.parent_id)) {
       mapMenu.get(item.parent_id).children.push(mapMenu.get(item.id));
+      mapChildrenToParent.get(item.id).push(item.parent_id);
     } else {
       tree.push(mapMenu.get(item.id));
     }
   }
-  return tree;
+
+  return { tree, mapChildrenToParent };
 };
 export const TreeMenu = createMenuTree(menu);
 /* tweaking the data ends  */

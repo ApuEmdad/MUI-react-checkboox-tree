@@ -3,7 +3,7 @@ import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import { TreeMenu as data } from "../../Assets/data/data";
+import { TreeMenu } from "../../Assets/data/data";
 
 import RoleMenuTree from "./RoleMenuTree";
 const RoleMenuTrees = ({
@@ -14,6 +14,9 @@ const RoleMenuTrees = ({
   parent,
   setParent,
 }) => {
+  const data = TreeMenu.tree;
+  const mapChildrenToParent = TreeMenu.mapChildrenToParent;
+
   return (
     <Box>
       <Box sx={{ backgroundColor: "#fafafa" }}>
@@ -37,6 +40,7 @@ const RoleMenuTrees = ({
                 setSelectedIds={setSelectedIds}
                 setParent={setParent}
                 parent={parent}
+                mapChildrenToParent={mapChildrenToParent}
               />
             </Box>
           ))}

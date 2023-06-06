@@ -9,6 +9,7 @@ const RoleMenuTree = ({
   setSelectedIds,
   parent,
   setParent,
+  mapChildrenToParent,
 }) => {
   /* func getChildById returns the all the selected menu id and menu object seperately */
   const getChildById = (node, id) => {
@@ -67,17 +68,13 @@ const RoleMenuTree = ({
     setSelected(array);
 
     /* unselectParent remove parentId from selectedIds list thus the the parent checkbox is toggled to uncheck */
-    const unselectParents = (ids, nodeId, parentId) => {
-      return ids
-        .filter((id) => id !== nodeId && id !== parentId)
-        .flatMap((id) => {
-          const node = getChildById(data, id).ids;
-          if (node.parent_id === parentId) {
-            return unselectParents(ids, node.id, node.parent_id);
-          } else {
-            return id;
-          }
-        });
+    const unselectParents = (selectedIds, nodeId, parentId) => {
+      console.log("parentExist?:", Boolean(mapChildrenToParent.get(parentId)));
+      const newSelectedIds = selectedIds.filter(
+        (id) => id !== nodeId && id !== parentId && !ids.includes(id)
+      );
+
+      return newSelectedIds;
     };
 
     let idsArray;
@@ -85,7 +82,8 @@ const RoleMenuTree = ({
       idsArray = [...new Set([...selectedIds, ...ids])];
     } else {
       idsArray = unselectParents(
-        selectedIds.filter((value) => !ids.includes(value)),
+        selectedIds,
+        // selectedIds.filter((value) => !ids.includes(value)),
         nodes.id,
         nodes.parent_id
       );

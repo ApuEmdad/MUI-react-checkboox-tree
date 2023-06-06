@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import { TreeMenu as data } from "../../Assets/data/data";
+import { TreeMenu } from "../../Assets/data/data";
 import TestRoleMenuTree from "./TestRoleMenuTree";
 import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -13,6 +13,8 @@ const TestRoleMenuTrees = () => {
 
   console.log("selected", selected);
   console.log("selectedIds", selectedIds);
+  const data = TreeMenu.tree;
+
   // console.log("parent", parent);
   return (
     <Box>
