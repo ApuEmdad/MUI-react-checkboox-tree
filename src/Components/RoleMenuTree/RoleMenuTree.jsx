@@ -72,10 +72,10 @@ const RoleMenuTree = ({
       let newSelectedIds = selectedIds.filter(
         (id) => id !== nodeId && id !== parentId && !ids.includes(id)
       );
-      console.log("newSelectedIds", newSelectedIds);
 
       const removeGrandParent = (parentId) => {
         const grandParent = mapChildrenToParent.get(parentId);
+
         if (grandParent && grandParent.length > 0) {
           console.log("grandparentExist?:", grandParent);
           newSelectedIds = newSelectedIds.filter(

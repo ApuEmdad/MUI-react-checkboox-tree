@@ -51,3 +51,6 @@ const data = [
 The problem is if i run removeGrandParent(255), the selectedIds become [3,4,5,7,8,9] but it should be [256,257,3,4,5,7,8,9]
 
 */
+
+{
+}
