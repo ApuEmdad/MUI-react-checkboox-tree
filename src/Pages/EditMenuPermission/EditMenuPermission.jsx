@@ -12,9 +12,9 @@ const EditMenuPermission = () => {
   const [selectedIds, setSelectedIds] = useState([]);
   const [parent, setParent] = useState({});
 
-  console.log("selected", selected);
-  console.log("selectedIds", selectedIds);
-  console.log("parent", parent);
+  // console.log("selected", selected);
+  // console.log("selectedIds", selectedIds);
+  // console.log("parent", parent);
 
   const handleCreatePayload = () => {
     const payload = {

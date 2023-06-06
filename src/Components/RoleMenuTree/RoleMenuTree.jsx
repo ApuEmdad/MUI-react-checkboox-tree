@@ -53,13 +53,13 @@ const RoleMenuTree = ({
   };
 
   const getOnChange = (checked, nodes) => {
-    console.log(nodes);
+    // console.log(nodes);
     /* returns the children ids of current node */
     const getChild = getChildById(nodes, nodes.id);
     const allNode = getChild.nodes;
     const ids = getChild.ids;
 
-    console.log(checked);
+    // console.log(checked);
     /* update selected */
     /* selected = all the node +- allNode, selectedIds = all the ids +- selectedIds  */
     let array = checked
@@ -67,15 +67,40 @@ const RoleMenuTree = ({
       : selected.filter((value) => !allNode.includes(value));
     setSelected(array);
 
-    /* unselectParent remove parentId from selectedIds list thus the the parent checkbox is toggled to uncheck */
+    /* ++++ unselectParent remove parentId from selectedIds list thus the the parent checkbox is toggled to uncheck starts ++++ */
     const unselectParents = (selectedIds, nodeId, parentId) => {
-      console.log("parentExist?:", Boolean(mapChildrenToParent.get(parentId)));
-      const newSelectedIds = selectedIds.filter(
+      let newSelectedIds = selectedIds.filter(
         (id) => id !== nodeId && id !== parentId && !ids.includes(id)
       );
+      console.log("newSelectedIds", newSelectedIds);
 
+      const removeGrandParent = (parentId, mapChildrenToParent) => {
+        const grandParent = mapChildrenToParent.get(parentId);
+        if (grandParent && grandParent.length > 0) {
+          console.log("grandparentExist?:", grandParent);
+          newSelectedIds = newSelectedIds.filter(
+            (id) => !grandParent.includes(id)
+          );
+        }
+        const greatGreatParent = mapChildrenToParent.get(grandParent[0]);
+        console.log("GreateGrandparentExist?:", greatGreatParent);
+
+        if (greatGreatParent && greatGreatParent.length > 0) {
+          removeGrandParent(greatGreatParent[0], mapChildrenToParent);
+        }
+      };
+
+      removeGrandParent(parentId, mapChildrenToParent);
+      /* const grandParent = mapChildrenToParent.get(parentId);
+      if (grandParent && grandParent.length > 0) {
+        console.log("grandparentExist?:", grandParent);
+        newSelectedIds = newSelectedIds.filter(
+          (id) => !grandParent.includes(id)
+        );
+      } */
       return newSelectedIds;
     };
+    /* ---- unselectParent remove parentId from selectedIds list thus the the parent checkbox is toggled to uncheck starts ---- */
 
     let idsArray;
     if (checked) {

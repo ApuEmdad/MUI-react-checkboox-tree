@@ -73,6 +73,32 @@ export const menu = [
     ],
     children: [],
   },
+  {
+    id: 256,
+    end_point: "/api/activate/*",
+    router_link: "",
+    parent_id: 255,
+    name: "Grand Child Activate",
+    translate_name: null,
+    icon: null,
+    is_menu: false,
+    position: 1,
+    can_view: true,
+    can_add: false,
+    can_edit: false,
+    can_delete: false,
+    can_change_password: false,
+    can_approve: false,
+    can_reject: false,
+    can_publish: false,
+    permissions: [
+      {
+        key: "can_view",
+        name: "view",
+      },
+    ],
+    children: [],
+  },
 
   {
     id: 3,
