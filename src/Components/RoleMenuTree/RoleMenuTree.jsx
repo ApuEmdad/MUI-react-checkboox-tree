@@ -74,23 +74,22 @@ const RoleMenuTree = ({
       );
       console.log("newSelectedIds", newSelectedIds);
 
-      const removeGrandParent = (parentId, mapChildrenToParent) => {
+      const removeGrandParent = (parentId) => {
         const grandParent = mapChildrenToParent.get(parentId);
         if (grandParent && grandParent.length > 0) {
           console.log("grandparentExist?:", grandParent);
           newSelectedIds = newSelectedIds.filter(
             (id) => !grandParent.includes(id)
           );
-        }
-        const greatGreatParent = mapChildrenToParent.get(grandParent[0]);
-        console.log("GreateGrandparentExist?:", greatGreatParent);
-
-        if (greatGreatParent && greatGreatParent.length > 0) {
-          removeGrandParent(greatGreatParent[0], mapChildrenToParent);
+          const greatGrandParent = mapChildrenToParent.get(grandParent[0]);
+          console.log("GreatGrandparentExist?:", greatGrandParent);
+          if (greatGrandParent && greatGrandParent.length > 0) {
+            removeGrandParent(grandParent[0]);
+          }
         }
       };
 
-      removeGrandParent(parentId, mapChildrenToParent);
+      removeGrandParent(parentId);
       /* const grandParent = mapChildrenToParent.get(parentId);
       if (grandParent && grandParent.length > 0) {
         console.log("grandparentExist?:", grandParent);
