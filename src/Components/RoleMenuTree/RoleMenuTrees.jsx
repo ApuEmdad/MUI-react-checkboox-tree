@@ -16,8 +16,9 @@ const RoleMenuTrees = ({
 }) => {
   const data = TreeMenu.tree;
   const mapChildrenToParent = TreeMenu.mapChildrenToParent;
+  const mapMenu = TreeMenu.mapMenu;
 
-  console.log("mapChildrenToParent:", mapChildrenToParent);
+  console.log("mapMenu:", mapMenu);
 
   return (
     <Box>
@@ -43,6 +44,7 @@ const RoleMenuTrees = ({
                 setParent={setParent}
                 parent={parent}
                 mapChildrenToParent={mapChildrenToParent}
+                mapMenu={mapMenu}
               />
             </Box>
           ))}

@@ -10,6 +10,7 @@ const RoleMenuTree = ({
   parent,
   setParent,
   mapChildrenToParent,
+  mapMenu,
 }) => {
   /* func getChildById returns the all the selected menu id and menu object seperately */
   const getChildById = (node, id) => {

@@ -1680,7 +1680,7 @@ const createMenuTree = (input) => {
     }
   }
 
-  return { tree, mapChildrenToParent };
+  return { tree, mapChildrenToParent, mapMenu };
 };
 export const TreeMenu = createMenuTree(menu);
 /* tweaking the data ends  */
